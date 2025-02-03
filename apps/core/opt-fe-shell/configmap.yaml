@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: opt-fe-shell
+  namespace: opt-dev 
+data:
+  DAPR_APP_ID: "opt-fe-shell"
+  DAPR_HOST : "localhost"
+  DAPR_PORT: "3500"
+  SERVER_HOST: "localhost"
+  SERVER_PORT: "3000"
+  NODE_ENV: "production"
+  ELASTIC_APM_SERVICE_NAME: "opt-fe-shell"
+  NODE_OPTIONS: "--require=elastic-apm-node/start-next.js"
+  OPT_MFE_DOMAIN: "https://mfe.dev.optimality-pro.com"

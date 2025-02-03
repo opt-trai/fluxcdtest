@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: opt-domain-rag-search-sme
+  namespace: opt-dev
+spec:
+  ports:
+    - protocol: TCP
+      port: 5050
+      targetPort: 5050
+  selector:
+    app: opt-domain-rag-search-sme
+  sessionAffinity: None
+  type: ClusterIP

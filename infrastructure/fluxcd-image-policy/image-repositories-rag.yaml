@@ -1,0 +1,59 @@
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: opt-be-rag-bio-prompt
+  namespace: flux-system
+spec:
+  image: optimality.azurecr.io/opt-be-rag-bio-prompt
+  interval: 1m0s
+  provider: azure
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: opt-be-rag-memo-prompt
+  namespace: flux-system
+spec:
+  image: optimality.azurecr.io/opt-be-rag-memo-prompt
+  interval: 1m0s
+  provider: azure
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: opt-be-rag-pid-prompt
+  namespace: flux-system
+spec:
+  image: optimality.azurecr.io/opt-be-rag-pid-prompt
+  interval: 1m0s
+  provider: azure
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: opt-be-rage-process-user-query
+  namespace: flux-system
+spec:
+  image: optimality.azurecr.io/opt-be-rage-process-user-query
+  interval: 1m0s
+  provider: azure
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: opt-domain-rag-search-sme
+  namespace: flux-system
+spec:
+  image: optimality.azurecr.io/opt-domain-rag-search-sme
+  interval: 1m0s
+  provider: azure
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: opt-domain-rag-search-tag
+  namespace: flux-system
+spec:
+  image: optimality.azurecr.io/opt-domain-rag-search-tag
+  interval: 1m0s
+  provider: azure

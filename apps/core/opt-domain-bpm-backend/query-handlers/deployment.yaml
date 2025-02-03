@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: opt-domain-bpm-backend-query
+  namespace: opt-dev
+  annotations:
+    reloader.stakater.com/auto: "true"
+  labels:
+    app: opt-domain-bpm-backend-query
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: opt-domain-bpm-backend-query
+  template:
+    metadata:
+      labels:
+        app: opt-domain-bpm-backend-query
+        stack: optimality
+      annotations:
+        dapr.io/enabled: 'true'
+        dapr.io/app-id: 'opt-domain-bpm-backend-query'
+        dapr.io/app-port: '3000'
+        dapr.io/sidecar-liveness-probe-delay-seconds: '10'
+        dapr.io/sidecar-liveness-probe-timeout-seconds: '5'
+        dapr.io/sidecar-liveness-probe-period-seconds: '20'
+        dapr.io/sidecar-readiness-probe-delay-seconds: '10'
+        dapr.io/sidecar-readiness-probe-timeout-seconds: '5'
+        dapr.io/sidecar-readiness-probe-period-seconds: '20'
+    spec:
+      containers:
+      - name: opt-domain-bpm-backend-query
+        image: optimality.azurecr.io/opt-domain-bpm-backend-query:dev-0.0.1-1738086216-42 # {"$imagepolicy": "flux-system:opt-domain-bpm-backend-query"}
+        envFrom:
+        - configMapRef:
+            name: opt-domain-bpm-backend
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 3000
+          name: http
+        # readinessProbe:
+        #   httpGet:
+        #     path: /
+        #     port: http
+        #   initialDelaySeconds: 15
+        #   periodSeconds: 10
+        # livenessProbe:
+        #   httpGet:
+        #     path: /
+        #     port: http
+        #   initialDelaySeconds: 15
+        #   periodSeconds: 20
+        resources:
+          requests:
+            cpu: 100m
+            memory: 256Mi
+          limits:
+            cpu: 500m
+            memory: 1Gi
+        volumeMounts:
+        - name: eventstore-certs-ca
+          mountPath: /app/eventstore.crt
+          subPath: ca.crt
+      volumes:
+      - name: eventstore-certs-ca
+        secret:
+          secretName: eventstore-certs-ca

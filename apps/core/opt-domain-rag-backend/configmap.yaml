@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: opt-domain-rag-backend
+  namespace: opt-dev 
+data:
+  DAPR_APP_ID: "opt-domain-rag-backend"
+  DAPR_HOST : "localhost"
+  DAPR_PORT: "3500"
+  SERVER_HOST: "localhost"
+  SERVER_PORT: "3000"
+  OPT_RAGE_SERVICE_URL: "https://api.dev.optimality-pro.com/rage/query"
+  NODE_ENV: "production"
+  ELASTIC_APM_SERVICE_NAME: "opt-domain-rag-backend"

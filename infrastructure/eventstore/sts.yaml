@@ -1,0 +1,119 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: eventstore
+  namespace: opt-dev
+  labels:
+    app: eventstore
+spec:
+  serviceName: "eventstore"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: eventstore
+  template:
+    metadata:
+      labels:
+        app: eventstore
+    spec:
+      initContainers:
+      - name: setup
+        image: eventstore/es-gencert-cli:1.0.2
+        securityContext:
+          runAsUser: 0
+        env:
+        - name: NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: EVENTSTORE_SERVICE_NAME
+          value: eventstore
+        command:
+        - sh
+        - -c
+        - |
+          export EVENTSTORE_CERT_PATH=/var/lib/eventstore/certs
+          if [ ! -f "$EVENTSTORE_CERT_PATH/node1/node.crt" ]; then
+            echo "Generating certificate..."
+            mkdir -p "$EVENTSTORE_CERT_PATH"
+            cd "$EVENTSTORE_CERT_PATH"
+            rm -rf ./node1
+            es-gencert-cli create-node -out ./node1 -ip-addresses 127.0.0.1 -dns-names localhost,$EVENTSTORE_SERVICE_NAME,$EVENTSTORE_SERVICE_NAME.$NAMESPACE.svc.cluster.local.
+          else
+            echo "Certificate already exists."
+          fi
+        volumeMounts:
+        - name: eventstore-data
+          mountPath: /var/lib/eventstore
+        - name: eventstore-certs-ca
+          mountPath: /var/lib/eventstore/certs/ca/ca.crt
+          subPath: ca.crt
+        - name: eventstore-certs-ca
+          mountPath: /var/lib/eventstore/certs/ca/ca.key
+          subPath: ca.key
+      containers:
+      - name: eventstore
+        image: eventstore/eventstore:24.6
+        ports:
+        - containerPort: 2113
+          name: http
+        securityContext:
+          runAsUser: 0
+        env:
+        - name: EVENTSTORE_CLUSTER_SIZE
+          value: "1"
+        - name: EVENTSTORE_RUN_PROJECTIONS
+          value: "All"
+        - name: EVENTSTORE_START_STANDARD_PROJECTIONS
+          value: "true"
+        - name: EVENTSTORE_HTTP_PORT
+          value: "2113"
+        - name: EVENTSTORE_INSECURE
+          value: "false"
+        - name: EVENTSTORE_TRUSTED_ROOT_CERTIFICATES_PATH
+          value: /var/lib/eventstore/certs/ca
+        - name: EVENTSTORE_CERTIFICATE_FILE
+          value: /var/lib/eventstore/certs/node1/node.crt
+        - name: EVENTSTORE_CERTIFICATE_PRIVATE_KEY_FILE
+          value: /var/lib/eventstore/certs/node1/node.key
+        - name: EVENTSTORE_DEFAULT_ADMIN_PASSWORD
+          value: "yZ4t7jWMrSNpRV7rFCAXjswY"
+        - name: EVENTSTORE_DEFAULT_OPS_PASSWORD
+          value: "U73kX8Dpp5CqShKUTNQwkhQJ"
+        volumeMounts:
+        - name: eventstore-data
+          mountPath: /var/lib/eventstore
+        - name: eventstore-certs-ca
+          mountPath: /var/lib/eventstore/certs/ca/ca.crt
+          subPath: ca.crt
+        - name: eventstore-certs-ca
+          mountPath: /var/lib/eventstore/certs/ca/ca.key
+          subPath: ca.key
+        livenessProbe:
+          httpGet:
+            path: /health/live
+            port: http
+            scheme: HTTPS
+          initialDelaySeconds: 15
+          periodSeconds: 30
+          successThreshold: 1
+        readinessProbe:
+          httpGet:
+            path: /health/live
+            port: http
+            scheme: HTTPS
+          initialDelaySeconds: 15
+          periodSeconds: 10
+          successThreshold: 1
+      volumes:
+      - name: eventstore-certs-ca
+        secret:
+          secretName: eventstore-certs-ca
+  volumeClaimTemplates:
+  - metadata:
+      name: eventstore-data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 16Gi

@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: opt-domain-theme-app
+  namespace: opt-dev 
+data:
+  DAPR_APP_ID: "opt-domain-theme-app"
+  SERVER_HOST: "localhost"
+  SERVER_PORT: "3000"
+  NEXT_PRIVATE_LOCAL_WEBPACK: "true"
+  NODE_ENV: "production"
+  ELASTIC_APM_SERVICE_NAME: "opt-domain-theme-app"
+  NODE_OPTIONS: "--require=elastic-apm-node/start-next.js"
+  #Query Handler
+  QH_DAPR_HOST: "localhost" 
+  QH_DAPR_PORT: "3500"
+  #Command Handler
+  CH_DAPR_HOST: "localhost"
+  CH_DAPR_PORT: "3500"

@@ -1,0 +1,69 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: opt-domain-theme-backend-command
+  namespace: opt-dev
+  annotations:
+    reloader.stakater.com/auto: "true"
+  labels:
+    app: opt-domain-theme-backend-command
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: opt-domain-theme-backend-command
+  template:
+    metadata:
+      labels:
+        app: opt-domain-theme-backend-command
+        stack: optimality
+      annotations:
+        dapr.io/enabled: 'true'
+        dapr.io/app-id: 'opt-domain-theme-backend-command'
+        dapr.io/app-port: '3000'
+        dapr.io/sidecar-liveness-probe-delay-seconds: '10'
+        dapr.io/sidecar-liveness-probe-timeout-seconds: '5'
+        dapr.io/sidecar-liveness-probe-period-seconds: '20'
+        dapr.io/sidecar-readiness-probe-delay-seconds: '10'
+        dapr.io/sidecar-readiness-probe-timeout-seconds: '5'
+        dapr.io/sidecar-readiness-probe-period-seconds: '20'
+    spec:
+      containers:
+      - name: opt-domain-theme-backend-command
+        image: optimality.azurecr.io/opt-domain-theme-backend-command:dev-0.0.1-1730281929-25 # {"$imagepolicy": "flux-system:opt-domain-theme-backend-command"}
+        envFrom:
+        - configMapRef:
+            name: opt-domain-theme-backend
+        - secretRef:
+            name: opt-elastic-apm
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 3000
+          name: http
+        # readinessProbe:
+        #   httpGet:
+        #     path: /
+        #     port: http
+        #   initialDelaySeconds: 15
+        #   periodSeconds: 10
+        # livenessProbe:
+        #   httpGet:
+        #     path: /
+        #     port: http
+        #   initialDelaySeconds: 15
+        #   periodSeconds: 20
+        resources:
+          requests:
+            cpu: 100m
+            memory: 256Mi
+          limits:
+            cpu: 500m
+            memory: 1Gi
+        volumeMounts:
+        - name: eventstore-certs-ca
+          mountPath: /app/eventstore.crt
+          subPath: ca.crt
+      volumes:
+      - name: eventstore-certs-ca
+        secret:
+          secretName: eventstore-certs-ca

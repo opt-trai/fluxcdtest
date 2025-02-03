@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: opt-be-rage-process-user-query
+  namespace: opt-dev
+  annotations:
+    reloader.stakater.com/auto: "true"
+  labels:
+    app: opt-be-rage-process-user-query
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: opt-be-rage-process-user-query
+  revisionHistoryLimit: 5
+  template:
+    metadata:
+      labels:
+        app: opt-be-rage-process-user-query
+        stack: optimality
+      annotations:
+        dapr.io/enabled: 'true'
+        dapr.io/app-id: 'opt-be-rage-process-user-query'
+        dapr.io/app-port: '5050'
+    spec:
+      containers:
+      - name: opt-be-rage-process-user-query
+        image: optimality.azurecr.io/opt-be-rage-process-user-query:dev-0.0.1-1729604523-4 # {"$imagepolicy": "flux-system:opt-be-rage-process-user-query"}
+        envFrom:
+        - configMapRef:
+            name: opt-be-rage-process-user-query
+        - configMapRef:
+            name: opt-general
+        - secretRef:
+            name: opt-openai
+        - secretRef:
+            name: opt-elastic-apm
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 5050
+          name: http
+        # readinessProbe:
+        #   httpGet:
+        #     path: /
+        #     port: http
+        #   initialDelaySeconds: 5
+        #   periodSeconds: 10
+        # livenessProbe:
+        #   httpGet:
+        #     path: /
+        #     port: http
+        #   initialDelaySeconds: 15
+        #   periodSeconds: 20
+        resources:
+          requests:
+            cpu: 50m
+            memory: 128Mi
+          limits:
+            cpu: 500m
+            memory: 1Gi

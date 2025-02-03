@@ -1,0 +1,60 @@
+# # A deployment of the optichat for a single instance
+
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: opt-fscrawler
+#   namespace: opt-dev
+# spec:
+#   selector:
+#     matchLabels:
+#       app: opt-fscrawler
+#   replicas: 1
+#   template:
+#     metadata:
+#       labels:
+#         app: opt-fscrawler
+#     spec:
+#       containers:
+#       - name: fscrawler
+#         image: dadoonet/fscrawler:2.10-SNAPSHOT
+#         command: ["fscrawler"]
+#         args: ["pididxtxt", "--restart", "--rest"]
+#         resources:
+#           limits:
+#             cpu: "500m"
+#             memory: "2Gi"
+#           requests:
+#             cpu: "100m"
+#             memory: "256Mi"
+#         securityContext:
+#           runAsUser: 0
+#         volumeMounts:
+#         - name: opt-fscrawler-data
+#           mountPath: /tmp/es
+#         - name: opt-fscrawler-config
+#           mountPath: /root/.fscrawler/pididxtxt/_settings.yaml
+#           subPath: pididxtxt_settings.yaml
+#         ports:
+#         - containerPort: 8080
+#           name: http
+#           protocol: TCP
+#         readinessProbe:
+#           httpGet:
+#               path: /
+#               port: http
+#           initialDelaySeconds: 30
+#           periodSeconds: 15
+#         livenessProbe:
+#           httpGet:
+#               path: /
+#               port: http
+#           initialDelaySeconds: 30
+#           periodSeconds: 30
+#       volumes:
+#       - name: opt-fscrawler-config
+#         configMap:
+#           name: opt-fscrawler-config
+#       - name: opt-fscrawler-data
+#         persistentVolumeClaim:
+#           claimName: opt-fscrawler-data

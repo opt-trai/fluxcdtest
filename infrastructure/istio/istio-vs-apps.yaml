@@ -1,0 +1,496 @@
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: mfe-dev-optimality-pro-com
+  namespace: opt-dev
+spec:
+  hosts:
+  - mfe.dev.optimality-pro.com
+  gateways:
+  - istio-system/wildcard-external-dev-optimality-pro-com
+  http:
+  - name: "opt-domain-home-app"
+    match:
+    - uri:
+        exact: "/home"
+    - uri:
+        prefix: "/home/"
+    route:
+    - destination:
+        host: opt-domain-home-app.opt-dev.svc.cluster.local
+        port:
+          number: 3000
+    corsPolicy:
+      allowOrigins:
+      - prefix: https://app.dev.optimality-pro.com
+      - prefix: https://mfe.dev.optimality-pro.com
+      - prefix: http://localhost
+      allowMethods:
+      - GET
+      - POST
+      - PUT
+      - PATCH
+      - DELETE
+      - OPTIONS
+      allowCredentials: true
+      allowHeaders:
+      - Authorization
+      - X-CSRF-Token
+      - X-Requested-With
+      - Accept
+      - Accept-Version
+      - Content-Length
+      - Content-MD5
+      - Content-Type
+      - Date
+      - X-Api-Version
+      maxAge: "24h"
+  - name: "opt-domain-tasks-app"
+    match:
+    - uri:
+        exact: "/tasks"
+    - uri:
+        prefix: "/tasks/"
+    route:
+    - destination:
+        host: opt-domain-tasks-app.opt-dev.svc.cluster.local
+        port:
+          number: 3000
+    corsPolicy:
+      allowOrigins:
+      - prefix: https://app.dev.optimality-pro.com
+      - prefix: https://mfe.dev.optimality-pro.com
+      - prefix: http://localhost
+      allowMethods:
+      - GET
+      - POST
+      - PUT
+      - PATCH
+      - DELETE
+      - OPTIONS
+      allowCredentials: true
+      allowHeaders:
+      - Authorization
+      - X-CSRF-Token
+      - X-Requested-With
+      - Accept
+      - Accept-Version
+      - Content-Length
+      - Content-MD5
+      - Content-Type
+      - Date
+      - X-Api-Version
+      maxAge: "24h"
+  - name: "opt-domain-content-app"
+    match:
+    - uri:
+        exact: "/content"
+    - uri:
+        prefix: "/content/"
+    route:
+    - destination:
+        host: opt-domain-content-app.opt-dev.svc.cluster.local
+        port:
+          number: 3000
+    corsPolicy:
+      allowOrigins:
+      - prefix: https://app.dev.optimality-pro.com
+      - prefix: https://mfe.dev.optimality-pro.com
+      - prefix: http://localhost
+      allowMethods:
+      - GET
+      - POST
+      - PUT
+      - PATCH
+      - DELETE
+      - OPTIONS
+      allowCredentials: true
+      allowHeaders:
+      - Authorization
+      - X-CSRF-Token
+      - X-Requested-With
+      - Accept
+      - Accept-Version
+      - Content-Length
+      - Content-MD5
+      - Content-Type
+      - Date
+      - X-Api-Version
+      maxAge: "24h"
+  - name: "opt-domain-user-app"
+    match:
+    - uri:
+        exact: "/user"
+    - uri:
+        prefix: "/user/"
+    route:
+    - destination:
+        host: opt-domain-user-app.opt-dev.svc.cluster.local
+        port:
+          number: 3000
+    corsPolicy:
+      allowOrigins:
+      - prefix: https://app.dev.optimality-pro.com
+      - prefix: https://mfe.dev.optimality-pro.com
+      - prefix: http://localhost
+      allowMethods:
+      - GET
+      - POST
+      - PUT
+      - PATCH
+      - DELETE
+      - OPTIONS
+      allowCredentials: true
+      allowHeaders:
+      - Authorization
+      - X-CSRF-Token
+      - X-Requested-With
+      - Accept
+      - Accept-Version
+      - Content-Length
+      - Content-MD5
+      - Content-Type
+      - Date
+      - X-Api-Version
+      maxAge: "24h"
+  - name: "opt-domain-theme-app"
+    match:
+    - uri:
+        exact: "/theme"
+    - uri:
+        prefix: "/theme/"
+    route:
+    - destination:
+        host: opt-domain-theme-app.opt-dev.svc.cluster.local
+        port:
+          number: 3000
+    corsPolicy:
+      allowOrigins:
+      - prefix: https://app.dev.optimality-pro.com
+      - prefix: https://mfe.dev.optimality-pro.com
+      - prefix: http://localhost
+      allowMethods:
+      - GET
+      - POST
+      - PUT
+      - PATCH
+      - DELETE
+      - OPTIONS
+      allowCredentials: true
+      allowHeaders:
+      - Authorization
+      - X-CSRF-Token
+      - X-Requested-With
+      - Accept
+      - Accept-Version
+      - Content-Length
+      - Content-MD5
+      - Content-Type
+      - Date
+      - X-Api-Version
+      maxAge: "24h"
+  - name: "opt-domain-bpm-app"
+    match:
+    - uri:
+        exact: "/bpm"
+    - uri:
+        prefix: "/bpm/"
+    route:
+    - destination:
+        host: opt-domain-bpm-app.opt-dev.svc.cluster.local
+        port:
+          number: 3000
+    corsPolicy:
+      allowOrigins:
+      - prefix: https://app.dev.optimality-pro.com
+      - prefix: https://mfe.dev.optimality-pro.com
+      - prefix: http://localhost
+      allowMethods:
+      - GET
+      - POST
+      - PUT
+      - PATCH
+      - DELETE
+      - OPTIONS
+      allowCredentials: true
+      allowHeaders:
+      - Authorization
+      - X-CSRF-Token
+      - X-Requested-With
+      - Accept
+      - Accept-Version
+      - Content-Length
+      - Content-MD5
+      - Content-Type
+      - Date
+      - X-Api-Version
+      maxAge: "24h"
+  - name: "opt-domain-prompt-app"
+    match:
+    - uri:
+        exact: "/prompt"
+    - uri:
+        prefix: "/prompt/"
+    route:
+    - destination:
+        host: opt-domain-prompt-app.opt-dev.svc.cluster.local
+        port:
+          number: 3000
+    corsPolicy:
+      allowOrigins:
+      - prefix: https://app.dev.optimality-pro.com
+      - prefix: https://mfe.dev.optimality-pro.com
+      - prefix: http://localhost
+      allowMethods:
+      - GET
+      - POST
+      - PUT
+      - PATCH
+      - DELETE
+      - OPTIONS
+      allowCredentials: true
+      allowHeaders:
+      - Authorization
+      - X-CSRF-Token
+      - X-Requested-With
+      - Accept
+      - Accept-Version
+      - Content-Length
+      - Content-MD5
+      - Content-Type
+      - Date
+      - X-Api-Version
+      maxAge: "24h"
+---
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: app-dev-optimality-pro-com
+  namespace: opt-dev
+spec:
+  hosts:
+  - app.dev.optimality-pro.com
+  gateways:
+  - istio-system/wildcard-external-dev-optimality-pro-com
+  http:
+  - name: "opt-domain-user-app"
+    match:
+    - uri:
+        prefix: "/user/"
+    route:
+    - destination:
+        host: opt-domain-user-app.opt-dev.svc.cluster.local
+        port:
+          number: 3000
+    corsPolicy:
+      allowOrigins:
+      - prefix: https://app.dev.optimality-pro.com
+      - prefix: https://mfe.dev.optimality-pro.com
+      - prefix: http://localhost
+      allowMethods:
+      - GET
+      - POST
+      - PUT
+      - PATCH
+      - DELETE
+      - OPTIONS
+      allowCredentials: true
+      allowHeaders:
+      - Authorization
+      - X-CSRF-Token
+      - X-Requested-With
+      - Accept
+      - Accept-Version
+      - Content-Length
+      - Content-MD5
+      - Content-Type
+      - Date
+      - X-Api-Version
+      maxAge: "24h"
+  - name: "opt-domain-prompt-app"
+    match:
+    - uri:
+        prefix: "/prompt/"
+    route:
+    - destination:
+        host: opt-domain-prompt-app.opt-dev.svc.cluster.local
+        port:
+          number: 3000
+    corsPolicy:
+      allowOrigins:
+      - prefix: https://app.dev.optimality-pro.com
+      - prefix: https://mfe.dev.optimality-pro.com
+      - prefix: http://localhost
+      allowMethods:
+      - GET
+      - POST
+      - PUT
+      - PATCH
+      - DELETE
+      - OPTIONS
+      allowCredentials: true
+      allowHeaders:
+      - Authorization
+      - X-CSRF-Token
+      - X-Requested-With
+      - Accept
+      - Accept-Version
+      - Content-Length
+      - Content-MD5
+      - Content-Type
+      - Date
+      - X-Api-Version
+      maxAge: "24h"
+  - name: "opt-graph-visualizer-app"
+    match:
+    - uri:
+        exact: "/graphviz"
+    - uri:
+        prefix: "/graphviz/"
+    route:
+    - destination:
+        host: opt-graph-visualizer-app.opt-dev.svc.cluster.local
+        port:
+          number: 3000
+    corsPolicy:
+      allowOrigins:
+      - prefix: https://app.dev.optimality-pro.com
+      - prefix: https://mfe.dev.optimality-pro.com
+      - prefix: http://localhost
+      allowMethods:
+      - GET
+      - POST
+      - PUT
+      - PATCH
+      - DELETE
+      - OPTIONS
+      allowCredentials: true
+      allowHeaders:
+      - Authorization
+      - X-CSRF-Token
+      - X-Requested-With
+      - Accept
+      - Accept-Version
+      - Content-Length
+      - Content-MD5
+      - Content-Type
+      - Date
+      - X-Api-Version
+      maxAge: "24h"
+  - name: "opt-optimizer"
+    match:
+    - uri:
+        exact: "/optimizer"
+    - uri:
+        prefix: "/optimizer/"
+    route:
+    - destination:
+        host: opt-optimizer.opt-dev.svc.cluster.local
+        port:
+          number: 3000
+    corsPolicy:
+      allowOrigins:
+      - prefix: https://app.dev.optimality-pro.com
+      - prefix: https://mfe.dev.optimality-pro.com
+      - prefix: http://localhost
+      allowMethods:
+      - GET
+      - POST
+      - PUT
+      - PATCH
+      - DELETE
+      - OPTIONS
+      allowCredentials: true
+      allowHeaders:
+      - Authorization
+      - X-CSRF-Token
+      - X-Requested-With
+      - Accept
+      - Accept-Version
+      - Content-Length
+      - Content-MD5
+      - Content-Type
+      - Date
+      - X-Api-Version
+      maxAge: "24h"
+  - name: "opt-cerbos"
+    match:
+    - uri:
+        exact: "/cerbos"
+    - uri:
+        prefix: "/cerbos/"
+    rewrite:
+      uri: "/"
+    route:
+    - destination:
+        host: cerbos.opt-auth.svc.cluster.local
+        port:
+          number: 3592
+    corsPolicy:
+      allowOrigins:
+      - prefix: https://app.dev.optimality-pro.com
+      - prefix: https://mfe.dev.optimality-pro.com
+      - prefix: http://localhost
+      allowMethods:
+      - GET
+      - POST
+      - PUT
+      - PATCH
+      - DELETE
+      - OPTIONS
+      allowCredentials: true
+      allowHeaders:
+      - Authorization
+      - X-CSRF-Token
+      - X-Requested-With
+      - Accept
+      - Accept-Version
+      - Content-Length
+      - Content-MD5
+      - Content-Type
+      - Date
+      - X-Api-Version
+      maxAge: "24h"
+  - name: "opt-keycloak"
+    match:
+    - uri:
+        exact: "/auth"
+    - uri:
+        prefix: "/auth/"
+    route:
+    - destination:
+        host: keycloak.opt-auth.svc.cluster.local
+        port:
+          number: 80
+    corsPolicy:
+      allowOrigins:
+      - prefix: https://app.dev.optimality-pro.com
+      - prefix: https://mfe.dev.optimality-pro.com
+      - prefix: http://localhost
+      allowMethods:
+      - GET
+      - POST
+      - PUT
+      - PATCH
+      - DELETE
+      - OPTIONS
+      allowCredentials: true
+      allowHeaders:
+      - Authorization
+      - X-CSRF-Token
+      - X-Requested-With
+      - Accept
+      - Accept-Version
+      - Content-Length
+      - Content-MD5
+      - Content-Type
+      - Date
+      - X-Api-Version
+      maxAge: "24h"
+  - name: "opt-fe-shell"
+    match:
+    - uri:
+        prefix: "/" # Matches requests starting with "/"
+    route:
+    - destination:
+        host: opt-fe-shell.opt-dev.svc.cluster.local # Replace with your default service name

@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: opt-be-rag-pid-prompt
+  namespace: opt-dev
+  annotations:
+    reloader.stakater.com/auto: "true"
+  labels:
+    app: opt-be-rag-pid-prompt
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: opt-be-rag-pid-prompt
+  revisionHistoryLimit: 5
+  template:
+    metadata:
+      labels:
+        app: opt-be-rag-pid-prompt
+        stack: optimality
+    spec:
+      containers:
+      - name: opt-be-rag-pid-prompt
+        image: optimality.azurecr.io/opt-be-rag-pid-prompt:dev-0.0.1-1729604613-6 # {"$imagepolicy": "flux-system:opt-be-rag-pid-prompt"}
+        envFrom:
+        - configMapRef:
+            name: opt-be-rag-pid-prompt
+        - secretRef:
+            name: opt-openai
+        - secretRef:
+            name: opt-elastic-apm
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 5060
+          name: http
+        # readinessProbe:
+        #   httpGet:
+        #     path: /
+        #     port: http
+        #   initialDelaySeconds: 5
+        #   periodSeconds: 10
+        # livenessProbe:
+        #   httpGet:
+        #     path: /
+        #     port: http
+        #   initialDelaySeconds: 15
+        #   periodSeconds: 20
+        resources:
+          requests:
+            cpu: 50m
+            memory: 128Mi
+          limits:
+            cpu: 500m
+            memory: 1Gi

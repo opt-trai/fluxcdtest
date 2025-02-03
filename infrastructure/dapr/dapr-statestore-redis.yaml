@@ -1,0 +1,54 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: OCIRepository
+metadata:
+  name: bitnami-redis
+  namespace: dapr-system
+spec:
+  interval: 24h
+  url: oci://registry-1.docker.io/bitnamicharts/redis
+  ref:
+    semver: ">= 20.x"
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: dapr-statestore-redis
+  namespace: dapr-system
+spec:
+  targetNamespace: dapr-system
+  upgrade:
+    preserveValues: false
+  install:
+    createNamespace: true
+  interval: 24h
+  chartRef:
+    kind: OCIRepository
+    name: bitnami-redis
+    namespace: dapr-system
+  values:
+    fullnameOverride: dapr-statestore-redis
+    architecture: standalone
+    master:
+      persistence:
+        enabled: false
+    auth:
+      enabled: false
+---
+apiVersion: dapr.io/v1alpha1
+auth:
+  secretStore: kubernetes
+kind: Component
+metadata:
+  name: statestore
+  namespace: opt-dev
+spec:
+  type: state.redis
+  version: v1
+  metadata:
+  - name: redisHost
+    value: dapr-statestore-redis-headless.dapr-system.svc.cluster.local.:6379
+  - name: actorStateStore
+    value: "true"
+  - name: redisDB
+    value: "1"

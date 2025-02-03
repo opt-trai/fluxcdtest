@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: opt-master-node-registry-command
+  namespace: opt-dev
+spec:
+  ports:
+    - name: dapr-server 
+      protocol: TCP
+      port: 80
+      targetPort: 3000
+    - name: nestjs-command 
+      protocol: TCP
+      port: 5004
+      targetPort: 5004
+  selector:
+    app: opt-master-node-registry-command
+  sessionAffinity: None
+  type: ClusterIP

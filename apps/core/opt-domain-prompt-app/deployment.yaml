@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: opt-domain-prompt-app
+  namespace: opt-dev
+  annotations:
+    reloader.stakater.com/auto: "true"
+  labels:
+    app: opt-domain-prompt-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: opt-domain-prompt-app
+  revisionHistoryLimit: 5
+  template:
+    metadata:
+      labels:
+        app: opt-domain-prompt-app
+        stack: optimality
+      annotations:
+        dapr.io/enabled: 'true'
+        dapr.io/app-id: 'opt-domain-prompt-app'
+        dapr.io/app-port: '3000'
+        dapr.io/sidecar-liveness-probe-delay-seconds: '10'
+        dapr.io/sidecar-liveness-probe-timeout-seconds: '5'
+        dapr.io/sidecar-liveness-probe-period-seconds: '20'
+        dapr.io/sidecar-readiness-probe-delay-seconds: '10'
+        dapr.io/sidecar-readiness-probe-timeout-seconds: '5'
+        dapr.io/sidecar-readiness-probe-period-seconds: '20'
+    spec:
+      containers:
+      - name: opt-domain-prompt-app
+        image: optimality.azurecr.io/opt-domain-prompt-app:dev-0.0.1-1730973572-7 # {"$imagepolicy": "flux-system:opt-domain-prompt-app"}
+        imagePullPolicy: IfNotPresent
+        envFrom:
+        - configMapRef:
+            name: opt-domain-prompt-app
+        - secretRef:
+            name: opt-openai
+        # - secretRef:
+        #     name: opt-elastic-apm
+        ports:
+        - containerPort: 3000
+          name: http
+        readinessProbe:
+          httpGet:
+            path: /prompt
+            port: http
+          initialDelaySeconds: 15
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /prompt
+            port: http
+          initialDelaySeconds: 15
+          periodSeconds: 20
+        resources:
+          requests:
+            cpu: 50m
+            memory: 128Mi
+          limits:
+            cpu: 500m
+            memory: 1Gi

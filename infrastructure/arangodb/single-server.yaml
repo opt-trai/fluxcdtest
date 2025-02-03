@@ -1,0 +1,19 @@
+apiVersion: "database.arangodb.com/v1"
+kind: "ArangoDeployment"
+metadata:
+  name: "opt-arangodb-dev"
+  namespace: opt-arangodb
+spec:
+  mode: Single
+  single:
+    volumeClaimTemplate:
+      spec:
+        storageClassName: default
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: 16Gi
+        volumeMode: Filesystem
+  externalAccess:
+    type: None

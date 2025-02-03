@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: opt-domain-bpm-app
+  namespace: opt-dev 
+data:
+  # Common configs
+  ELASTIC_APM_SERVICE_NAME: "opt-domain-bpm-app"
+  NODE_ENV: "production"
+  NODE_OPTIONS: "--require=elastic-apm-node/start-next.js"
+  NEXT_PRIVATE_LOCAL_WEBPACK: "true"
+  DEFAULT_USER_UUID: "6477850e-5c34-449a-a65d-93dba565c41a"
+
+  # Dapr configs
+  DAPR_APP_ID: "opt-domain-bpm-app"
+  DAPR_HOST : "localhost"
+  DAPR_PORT: "3500"
+  SERVER_HOST: "localhost"
+  SERVER_PORT: "3000"
+  
+  # Query Handler
+  QH_DAPR_HOST: "localhost"
+  QH_DAPR_PORT: "3500"
+  
+  # Command Handler
+  CH_DAPR_HOST: "localhost"
+  CH_DAPR_PORT: "3500"

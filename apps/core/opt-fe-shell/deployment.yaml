@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: opt-fe-shell
+  namespace: opt-dev
+  annotations:
+    reloader.stakater.com/auto: "true"
+  labels:
+    app: opt-fe-shell
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: opt-fe-shell
+  template:
+    metadata:
+      labels:
+        app: opt-fe-shell
+        stack: optimality
+      annotations:
+        dapr.io/enabled: 'true'
+        dapr.io/app-id: 'opt-fe-shell'
+        dapr.io/app-port: '3000'
+        dapr.io/sidecar-liveness-probe-delay-seconds: '10'
+        dapr.io/sidecar-liveness-probe-timeout-seconds: '5'
+        dapr.io/sidecar-liveness-probe-period-seconds: '20'
+        dapr.io/sidecar-readiness-probe-delay-seconds: '10'
+        dapr.io/sidecar-readiness-probe-timeout-seconds: '5'
+        dapr.io/sidecar-readiness-probe-period-seconds: '20'
+    spec:
+      containers:
+      - name: opt-fe-shell
+        image: optimality.azurecr.io/opt-fe-shell:dev-0.0.1-1738583732-181 # {"$imagepolicy": "flux-system:opt-fe-shell"}
+        imagePullPolicy: IfNotPresent
+        envFrom:
+        - configMapRef:
+            name: opt-fe-shell
+        - secretRef:
+            name: opt-elastic-apm
+        ports:
+        - containerPort: 3000
+          name: http
+        readinessProbe:
+          httpGet:
+            path: /
+            port: http
+          initialDelaySeconds: 15
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /
+            port: http
+          initialDelaySeconds: 15
+          periodSeconds: 20
+        resources:
+          requests:
+            cpu: 100m
+            memory: 256Mi
+          limits:
+            cpu: 500m
+            memory: 1Gi

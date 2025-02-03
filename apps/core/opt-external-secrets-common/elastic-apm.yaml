@@ -1,0 +1,17 @@
+# apiVersion: external-secrets.io/v1beta1
+# kind: ExternalSecret
+# metadata:
+#   name: opt-elastic-apm
+#   namespace: opt-dev
+# spec:
+#   secretStoreRef:
+#     kind: ClusterSecretStore
+#     name: opt-kv-dev-ncus
+#   refreshInterval: "1h"
+#   target:
+#     name: opt-elastic-apm
+#     creationPolicy: 'Owner'
+#     deletionPolicy: 'Retain'
+#   dataFrom:
+#     - extract:
+#         key: opt-elastic-apm

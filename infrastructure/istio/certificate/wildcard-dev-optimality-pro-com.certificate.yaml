@@ -1,0 +1,24 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: 'wildcard.dev.optimality-pro.com.tls'
+  namespace: istio-system # Due to Gateway provision in istio-system
+spec:
+  dnsNames:
+  - '*.dev.optimality-pro.com'
+  issuerRef:
+    group: cert-manager.io
+    kind: ClusterIssuer
+    name: opt-acme-azure-dns-optimality-pro-com
+  secretName: 'wildcard.dev.optimality-pro.com.tls'
+  privateKey:
+    algorithm: RSA # Must be RSA, if in EC -> Failed to load private key from <inline> routines:OPENSSL_internal:NO_START_LINE	thread=13
+    encoding: PKCS1
+    size: 2048
+
+  duration: 2160h # 90d
+  renewBefore: 720h # 30d
+
+  usages:
+  - digital signature
+  - key encipherment

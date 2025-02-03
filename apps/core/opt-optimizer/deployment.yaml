@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: opt-optimizer
+  namespace: opt-dev
+  annotations:
+    reloader.stakater.com/auto: "true"
+  labels:
+    app: opt-optimizer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: opt-optimizer
+  template:
+    metadata:
+      labels:
+        app: opt-optimizer
+        stack: optimality
+      annotations:
+        dapr.io/enabled: 'true'
+        dapr.io/app-id: 'opt-optimizer'
+        dapr.io/app-port: '3000'
+        dapr.io/sidecar-liveness-probe-delay-seconds: '10'
+        dapr.io/sidecar-liveness-probe-timeout-seconds: '5'
+        dapr.io/sidecar-liveness-probe-period-seconds: '20'
+        dapr.io/sidecar-readiness-probe-delay-seconds: '10'
+        dapr.io/sidecar-readiness-probe-timeout-seconds: '5'
+        dapr.io/sidecar-readiness-probe-period-seconds: '20'
+    spec:
+      containers:
+      - name: opt-optimizer
+        image: optimality.azurecr.io/opt-optimizer:dev-0.0.1-1737431105-2 # {"$imagepolicy": "flux-system:opt-optimizer"}
+        imagePullPolicy: IfNotPresent
+        envFrom:
+        - configMapRef:
+            name: opt-optimizer
+        - secretRef:
+            name: opt-elastic-apm
+        ports:
+        - containerPort: 3000
+          name: http
+        # readinessProbe:
+        #   httpGet:
+        #     path: /graphviz
+        #     port: http
+        #   initialDelaySeconds: 15
+        #   periodSeconds: 10
+        # livenessProbe:
+        #   httpGet:
+        #     path: /graphviz
+        #     port: http
+        #   initialDelaySeconds: 15
+        #   periodSeconds: 20
+        resources:
+          requests:
+            cpu: 100m
+            memory: 256Mi
+          limits:
+            cpu: 500m
+            memory: 1Gi

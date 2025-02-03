@@ -1,0 +1,37 @@
+apiVersion: networking.istio.io/v1
+kind: Gateway
+metadata:
+  name: wildcard-external-dev-optimality-pro-com
+  namespace: istio-system
+spec:
+  selector:
+    app: istio-ingressgw-external
+  servers:
+  - port:
+      number: 443
+      name: https
+      protocol: HTTPS
+    tls:
+      mode: SIMPLE
+      credentialName: wildcard.dev.optimality-pro.com.tls
+    hosts:
+    - '*.dev.optimality-pro.com'
+---
+apiVersion: networking.istio.io/v1
+kind: Gateway
+metadata:
+  name: wildcard-external-dev-optimality-pro-ai
+  namespace: istio-system
+spec:
+  selector:
+    app: istio-ingressgw-external
+  servers:
+  - port:
+      number: 443
+      name: https
+      protocol: HTTPS
+    tls:
+      mode: SIMPLE
+      credentialName: 'wildcard.dev.optimality-pro.ai.tls'
+    hosts:
+    - '*.dev.optimality-pro.ai'

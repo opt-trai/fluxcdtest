@@ -1,0 +1,83 @@
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: opt-be-rag-bio-prompt
+  namespace: flux-system
+spec:
+  filterTags:
+    pattern: '^dev-*'
+  imageRepositoryRef:
+    name: opt-be-rag-bio-prompt
+  policy:
+    alphabetical:
+      order: asc
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: opt-be-rag-memo-prompt
+  namespace: flux-system
+spec:
+  filterTags:
+    pattern: '^dev-*'
+  imageRepositoryRef:
+    name: opt-be-rag-memo-prompt
+  policy:
+    alphabetical:
+      order: asc
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: opt-be-rag-pid-prompt
+  namespace: flux-system
+spec:
+  filterTags:
+    pattern: '^dev-*'
+  imageRepositoryRef:
+    name: opt-be-rag-pid-prompt
+  policy:
+    alphabetical:
+      order: asc
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: opt-be-rage-process-user-query
+  namespace: flux-system
+spec:
+  filterTags:
+    pattern: '^dev-*'
+  imageRepositoryRef:
+    name: opt-be-rage-process-user-query
+  policy:
+    alphabetical:
+      order: asc
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: opt-domain-rag-search-sme
+  namespace: flux-system
+spec:
+  filterTags:
+    pattern: '^dev-*'
+  imageRepositoryRef:
+    name: opt-domain-rag-search-sme
+  policy:
+    alphabetical:
+      order: asc
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: opt-domain-rag-search-tag
+  namespace: flux-system
+spec:
+  filterTags:
+    pattern: '^dev-*'
+  imageRepositoryRef:
+    name: opt-domain-rag-search-tag
+  policy:
+    alphabetical:
+      order: asc

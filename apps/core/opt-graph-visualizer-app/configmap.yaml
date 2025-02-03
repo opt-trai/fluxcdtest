@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: opt-graph-visualizer-app
+  namespace: opt-dev 
+data:
+  DAPR_APP_ID: "opt-graph-visualizer-app"
+  DAPR_HOST : "localhost"
+  DAPR_PORT: "3500"
+  SERVER_HOST: "localhost"
+  SERVER_PORT: "3000"
+  NODE_ENV: "production"
+  ELASTIC_APM_SERVICE_NAME: "opt-graph-visualizer-app"
+  NODE_OPTIONS: ""
+  DAPR_APP_ID_OPT_BE_ARANGODB_AGENT: "opt-be-arangodb-agent"

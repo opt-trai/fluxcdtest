@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: opt-optimizer
+  namespace: opt-dev 
+data:
+  DAPR_APP_ID: "opt-optimizer"
+  DAPR_HOST : "localhost"
+  DAPR_PORT: "3500"
+  SERVER_HOST: "localhost"
+  SERVER_PORT: "3000"
+  NODE_ENV: "production"
+  ELASTIC_APM_SERVICE_NAME: "opt-optimizer"
+  NODE_OPTIONS: ""

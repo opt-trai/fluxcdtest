@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: opt-domain-user-app
+  namespace: opt-dev 
+data:
+  DAPR_APP_ID: "opt-domain-user-app"
+  DAPR_HOST : "localhost"
+  DAPR_PORT: "3500"
+  SERVER_HOST: "localhost"
+  SERVER_PORT: "3000"
+  NEXT_PRIVATE_LOCAL_WEBPACK: "true"
+  NODE_ENV: "production"
+  ELASTIC_APM_SERVICE_NAME: "opt-domain-user-app"
+  NODE_OPTIONS: "--require=elastic-apm-node/start-next.js"
+  NEXT_PUBLIC_BASE_PATH: "/user"
+  SIGNIN_REDIRECT_URL: "/home"
+  KEYCLOAK_CLIENT_ID: "optimality-app"
+  KEYCLOAK_CLIENT_SECRET: "48zKlsQMT66bEeA9ojtieiKp6NgQWVLZ"
+  KEYCLOAK_ISSUER: "https://app.dev.optimality-pro.com/auth/realms/optimality"
+  NEXTAUTH_SECRET: "f1b2e3d4c5a6b7890123456789abcdef0123456789abcdef0123456789abcdef"
+  NEXTAUTH_URL: "https://app.dev.optimality-pro.com/user/api/auth"
+  NEXTAUTH_URL_INTERNAL: "http://localhost:3000/user/api/auth"

@@ -1,0 +1,55 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: grafana
+  namespace: opt-monitoring
+spec:
+  targetNamespace: opt-monitoring
+  releaseName: grafana
+  upgrade:
+    preserveValues: false
+  interval: 30m
+  chart:
+    spec:
+      chart: grafana
+      version: "8.x"
+      sourceRef:
+        kind: HelmRepository
+        name: grafana
+        namespace: opt-monitoring
+      interval: 30m
+  values:
+    initChownData:
+      enabled: false
+    envFromSecret: "opt-grafana"
+    persistence:
+      enabled: true
+    grafana.ini:
+      server:
+        root_url: "https://monitoring.dev.optimality-pro.ai"
+      analytics:
+        check_for_updates: true
+      log:
+        mode: console
+      paths:
+        data: /var/lib/grafana/
+        logs: /var/log/grafana
+        plugins: /var/lib/grafana/plugins
+        provisioning: /etc/grafana/provisioning
+      users:
+        auto_assign_org_role: Editor
+        viewers_can_edit: true
+      auth.azuread:
+        name: Optimality AAD
+        enabled: true
+        allow_sign_up: true
+        auto_login: false
+        scopes: openid email profile
+        auth_url: https://login.microsoftonline.com/19cd252c-b188-4d97-96dd-c74217c18f6d/oauth2/v2.0/authorize
+        token_url: https://login.microsoftonline.com/19cd252c-b188-4d97-96dd-c74217c18f6d/oauth2/v2.0/token
+        allowed_domains: optimalitypro.com
+        allowed_organizations: 19cd252c-b188-4d97-96dd-c74217c18f6d
+        role_attribute_strict: false
+        allow_assign_grafana_admin: false
+        skip_org_role_sync: false
+        use_pkce: true

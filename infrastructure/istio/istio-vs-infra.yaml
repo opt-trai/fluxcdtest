@@ -1,0 +1,41 @@
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: monitoring-dev-optimality-pro-ai
+  namespace: opt-monitoring
+spec:
+  hosts:
+  - monitoring.dev.optimality-pro.ai
+  gateways:
+  - istio-system/wildcard-external-dev-optimality-pro-ai
+  http:
+  - name: "opt-grafana"
+    match:
+    - uri:
+        prefix: "/" # Matches requests starting with "/"
+    route:
+    - destination:
+        host: grafana.opt-monitoring.svc.cluster.local # Replace with your default service name
+        port:
+          number: 80
+---
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: dapr-dev-optimality-pro-ai
+  namespace: dapr-system
+spec:
+  hosts:
+  - dapr.dev.optimality-pro.ai
+  gateways:
+  - istio-system/wildcard-internal-dev-optimality-pro-ai
+  http:
+  - name: "dapr-dashboard"
+    match:
+    - uri:
+        prefix: "/" # Matches requests starting with "/"
+    route:
+    - destination:
+        host: dapr-dashboard.dapr-system.svc.cluster.local # Replace with your default service name
+        port:
+          number: 8080

@@ -1,0 +1,19 @@
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: opt-acme-azure-dns-optimality-pro-com
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: hao.nguyen@optimalitypro.com
+    privateKeySecretRef:
+      name: opt-acme-azure-dns-optimality-pro-com
+    solvers:
+    - dns01:
+        azureDNS:
+          hostedZoneName: optimality-pro.com
+          resourceGroupName: opt-rg-dns-management
+          subscriptionID: 5566baba-c7ee-4a3f-909a-003d2f8a8459
+          environment: AzurePublicCloud
+          managedIdentity:
+            clientID: e161acd4-32f6-4140-91b8-5a7c71cd2720

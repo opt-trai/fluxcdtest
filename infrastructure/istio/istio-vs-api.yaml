@@ -1,0 +1,153 @@
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: api-dev-optimality-pro-com
+  namespace: opt-dev
+spec:
+  hosts:
+  - api.dev.optimality-pro.com
+  gateways:
+  - istio-system/wildcard-external-dev-optimality-pro-com
+  http:
+  - name: "opt-be-rage-process-user-query"
+    match:
+    - uri:
+        exact: "/rage"
+    - uri:
+        prefix: "/rage/"
+    rewrite:
+      uri: "/"
+    route:
+    - destination:
+        host: opt-be-rage-process-user-query.opt-dev.svc.cluster.local
+        port:
+          number: 5050
+    corsPolicy:
+      allowOrigins:
+      - prefix: https://app.dev.optimality-pro.com
+      - prefix: https://mfe.dev.optimality-pro.com
+      - prefix: http://localhost
+      allowMethods:
+      - GET
+      - POST
+      - PUT
+      - PATCH
+      - DELETE
+      - OPTIONS
+      allowCredentials: true
+      allowHeaders:
+      - Authorization
+      - X-CSRF-Token
+      - X-Requested-With
+      - Accept
+      - Accept-Version
+      - Content-Length
+      - Content-MD5
+      - Content-Type
+      - Date
+      - X-Api-Version
+      maxAge: "24h"
+  - name: "opt-master-node-registry-query"
+    match:
+    - uri:
+        exact: "/mnr_query"
+    - uri:
+        prefix: "/mnr_query/"
+    rewrite:
+      uri: "/mnr_query/"
+    route:
+    - destination:
+        host: opt-master-node-registry-query.opt-dev.svc.cluster.local
+        port:
+          number: 5005
+    corsPolicy:
+      allowMethods:
+      - GET
+      - POST
+      - PUT
+      - PATCH
+      - DELETE
+      - OPTIONS
+      allowCredentials: true
+      allowHeaders:
+      - Authorization
+      - X-CSRF-Token
+      - X-Requested-With
+      - Accept
+      - Accept-Version
+      - Content-Length
+      - Content-MD5
+      - Content-Type
+      - Date
+      - X-Api-Version
+      maxAge: "24h"
+  - name: "opt-master-node-registry-command"
+    match:
+    - uri:
+        exact: "/mnr_command"
+    - uri:
+        prefix: "/mnr_command/"
+    rewrite:
+      uri: "/mnr_command/"
+    route:
+    - destination:
+        host: opt-master-node-registry-command.opt-dev.svc.cluster.local
+        port:
+          number: 5004
+    corsPolicy:
+      allowMethods:
+      - GET
+      - POST
+      - PUT
+      - PATCH
+      - DELETE
+      - OPTIONS
+      allowCredentials: true
+      allowHeaders:
+      - Authorization
+      - X-CSRF-Token
+      - X-Requested-With
+      - Accept
+      - Accept-Version
+      - Content-Length
+      - Content-MD5
+      - Content-Type
+      - Date
+      - X-Api-Version
+      maxAge: "24h"
+  - name: "opt-be-arangodb-agent"
+    match:
+    - uri:
+        exact: "/agent/arangodb"
+    - uri:
+        prefix: "/agent/arangodb/"
+    route:
+    - destination:
+        host: opt-be-arangodb-agent.opt-dev.svc.cluster.local
+        port:
+          number: 8000
+    corsPolicy:
+      allowOrigins:
+      - prefix: https://app.dev.optimality-pro.com
+      - prefix: https://mfe.dev.optimality-pro.com
+      - prefix: http://localhost
+      allowMethods:
+      - GET
+      - POST
+      - PUT
+      - PATCH
+      - DELETE
+      - OPTIONS
+      allowCredentials: true
+      allowHeaders:
+      - Authorization
+      - X-CSRF-Token
+      - X-Requested-With
+      - Accept
+      - Accept-Version
+      - Content-Length
+      - Content-MD5
+      - Content-Type
+      - Date
+      - X-Api-Version
+      maxAge: "24h"

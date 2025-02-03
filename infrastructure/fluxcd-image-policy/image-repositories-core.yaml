@@ -1,0 +1,270 @@
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: opt-fe-shell
+  namespace: flux-system
+spec:
+  image: optimality.azurecr.io/opt-fe-shell
+  interval: 1m0s
+  provider: azure
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: opt-domain-tasks-app
+  namespace: flux-system
+spec:
+  image: optimality.azurecr.io/opt-domain-tasks-app
+  interval: 1m0s
+  provider: azure
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: opt-domain-home-app
+  namespace: flux-system
+spec:
+  image: optimality.azurecr.io/opt-domain-home-app
+  interval: 1m0s
+  provider: azure
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: opt-domain-content-app
+  namespace: flux-system
+spec:
+  image: optimality.azurecr.io/opt-domain-content-app
+  interval: 1m0s
+  provider: azure
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: opt-domain-user-app
+  namespace: flux-system
+spec:
+  image: optimality.azurecr.io/opt-domain-user-app
+  interval: 1m0s
+  provider: azure
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: opt-domain-rag-backend-main
+  namespace: flux-system
+spec:
+  image: optimality.azurecr.io/opt-domain-rag-backend-main
+  interval: 1m0s
+  provider: azure
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: opt-domain-tasks-backend-main
+  namespace: flux-system
+spec:
+  image: optimality.azurecr.io/opt-domain-tasks-backend-main
+  interval: 1m0s
+  provider: azure
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: opt-domain-content-backend-main
+  namespace: flux-system
+spec:
+  image: optimality.azurecr.io/opt-domain-content-backend-main
+  interval: 1m0s
+  provider: azure
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: opt-domain-theme-backend-command
+  namespace: flux-system
+spec:
+  image: optimality.azurecr.io/opt-domain-theme-backend-command
+  interval: 1m0s
+  provider: azure
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: opt-domain-theme-backend-query
+  namespace: flux-system
+spec:
+  image: optimality.azurecr.io/opt-domain-theme-backend-query
+  interval: 1m0s
+  provider: azure
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: opt-domain-theme-app
+  namespace: flux-system
+spec:
+  image: optimality.azurecr.io/opt-domain-theme-app
+  interval: 1m0s
+  provider: azure
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: opt-domain-user-backend-main
+  namespace: flux-system
+spec:
+  image: optimality.azurecr.io/opt-domain-user-backend-main
+  interval: 1m0s
+  provider: azure
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: opt-domain-bpm-app
+  namespace: flux-system
+spec:
+  image: optimality.azurecr.io/opt-domain-bpm-app
+  interval: 1m0s
+  provider: azure
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: opt-master-node-registry-command
+  namespace: flux-system
+spec:
+  image: optimality.azurecr.io/opt-master-node-registry-command
+  interval: 1m0s
+  provider: azure
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: opt-master-node-registry-query
+  namespace: flux-system
+spec:
+  image: optimality.azurecr.io/opt-master-node-registry-query
+  interval: 1m0s
+  provider: azure
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: opt-domain-ai-chatbot-app
+  namespace: flux-system
+spec:
+  image: optimality.azurecr.io/opt-domain-ai-chatbot-app
+  interval: 1m0s
+  provider: azure
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: opt-domain-bpm-backend-command
+  namespace: flux-system
+spec:
+  image: optimality.azurecr.io/opt-domain-bpm-backend-command
+  interval: 1m0s
+  provider: azure
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: opt-domain-bpm-backend-query
+  namespace: flux-system
+spec:
+  image: optimality.azurecr.io/opt-domain-bpm-backend-query
+  interval: 1m0s
+  provider: azure
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: opt-graph-visualizer-app
+  namespace: flux-system
+spec:
+  image: optimality.azurecr.io/opt-graph-visualizer-app
+  interval: 1m0s
+  provider: azure
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: opt-be-arangodb-agent
+  namespace: flux-system
+spec:
+  image: optimality.azurecr.io/opt-be-arangodb-agent
+  interval: 1m0s
+  provider: azure
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: opt-be-graph-arangodb-command
+  namespace: flux-system
+spec:
+  image: optimality.azurecr.io/opt-be-graph-arangodb-command
+  interval: 1m0s
+  provider: azure
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: opt-be-task-email
+  namespace: flux-system
+spec:
+  image: optimality.azurecr.io/opt-be-task-email
+  interval: 1m0s
+  provider: azure
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: opt-domain-prompt-app
+  namespace: flux-system
+spec:
+  image: optimality.azurecr.io/opt-domain-prompt-app
+  interval: 1m0s
+  provider: azure
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: opt-domain-mrd-backend-command-query
+  namespace: flux-system
+spec:
+  image: optimality.azurecr.io/opt-domain-mrd-backend-command-query
+  interval: 1m0s
+  provider: azure
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: opt-domain-endeavors-backend-command
+  namespace: flux-system
+spec:
+  image: optimality.azurecr.io/opt-domain-endeavors-backend-command
+  interval: 1m0s
+  provider: azure
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: opt-domain-endeavors-backend-query
+  namespace: flux-system
+spec:
+  image: optimality.azurecr.io/opt-domain-endeavors-backend-query
+  interval: 1m0s
+  provider: azure
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: opt-optimizer
+  namespace: flux-system
+spec:
+  image: optimality.azurecr.io/opt-optimizer
+  interval: 1m0s
+  provider: azure

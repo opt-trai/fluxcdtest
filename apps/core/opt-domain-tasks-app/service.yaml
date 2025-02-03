@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: opt-domain-tasks-app
+  namespace: opt-dev
+spec:
+  ports:
+    - name: http
+      port: 3000
+      protocol: TCP
+      targetPort: http
+  selector:
+    app: opt-domain-tasks-app
+  sessionAffinity: None
+  type: ClusterIP

@@ -1,0 +1,42 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: stakater
+spec:
+  finalizers:
+  - kubernetes
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: stakater
+  namespace: stakater
+spec:
+  interval: 24h
+  url: https://stakater.github.io/stakater-charts
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: reloader
+  namespace: stakater
+spec:
+  targetNamespace: stakater
+  releaseName: stakater-reloader
+  upgrade:
+    preserveValues: false
+  install:
+    createNamespace: true
+  interval: 30m
+  chart:
+    spec:
+      chart: reloader
+      version: "1.0.46"
+      sourceRef:
+        kind: HelmRepository
+        name: stakater
+        namespace: stakater
+      interval: 12h
+  values:
+    fullnameOverride: stakater-reloader

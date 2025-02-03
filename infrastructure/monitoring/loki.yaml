@@ -1,0 +1,79 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: loki-stack
+  namespace: opt-monitoring
+spec:
+  targetNamespace: opt-monitoring
+  releaseName: loki-stack
+  upgrade:
+    preserveValues: false
+  interval: 30m
+  chart:
+    spec:
+      chart: loki-stack
+      version: "2.x"
+      sourceRef:
+        kind: HelmRepository
+        name: grafana
+        namespace: opt-monitoring
+      interval: 30m
+  values:
+    global:
+      sidecar:
+        datasources:
+          enabled: false
+    grafana:
+      enabled: false
+    loki:
+      image:
+        tag: 2.9.3
+      podAnnotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "3100"
+      config:
+        limits_config:
+          reject_old_samples: false
+        table_manager:
+          retention_deletes_enabled: true
+          retention_period: 336h
+      ingress:
+        enabled: false
+      persistence:
+        accessModes:
+          - ReadWriteOnce
+        enabled: true
+        size: 128Gi
+      serviceMonitor:
+        additionalLabels:
+          release: opt-monitoring-prometheus-k8s
+        annotations:
+          release: opt-monitoring-prometheus-k8s
+        enabled: false
+    prometheus:
+      enabled: false
+    # promtail:
+    #   tolerations: []
+    #   labels:
+    #     app: promtail
+    #     release: loki-stack
+    #   defaultVolumes:
+    #   - name: run
+    #     hostPath:
+    #       path: /run/promtail
+    #   - name: docker
+    #     hostPath:
+    #       path: /var/lib/docker/containers
+    #   - name: pods
+    #     hostPath:
+    #       path: /var/log/pods
+    #   - name: containers # Openshift
+    #     hostPath:
+    #       path: /var/log/containers          
+    #   containerSecurityContext:
+    #     privileged: true # Openshift
+    #     readOnlyRootFilesystem: true
+    #     capabilities:
+    #       drop:
+    #         - ALL
+    #     allowPrivilegeEscalation: true

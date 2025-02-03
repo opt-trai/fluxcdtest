@@ -1,0 +1,23 @@
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: opt-azurefile-graph
+provisioner: file.csi.azure.com
+mountOptions:
+  - dir_mode=0777
+  - file_mode=0777
+  - uid=0
+  - gid=0
+  - mfsymlinks
+  - cache=strict
+  - actimeo=30
+  - noperm
+parameters:
+  location: northcentralus
+  secretNamespace: kube-system
+  skuName: Standard_LRS
+  storageAccount: optgraphdemoncus
+  resourceGroup: opt-rg-graph-demo-ncus
+reclaimPolicy: Retain
+volumeBindingMode: Immediate
+allowVolumeExpansion: true

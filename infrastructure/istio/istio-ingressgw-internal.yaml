@@ -1,0 +1,19 @@
+---
+apiVersion: networking.istio.io/v1
+kind: Gateway
+metadata:
+  name: wildcard-internal-dev-optimality-pro-ai
+  namespace: istio-system
+spec:
+  selector:
+    app: istio-ingressgw-internal
+  servers:
+  - port:
+      number: 443
+      name: https
+      protocol: HTTPS
+    tls:
+      mode: SIMPLE
+      credentialName: 'wildcard.dev.optimality-pro.ai.tls'
+    hosts:
+    - '*.dev.optimality-pro.ai'

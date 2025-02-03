@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: opt-be-task-email
+  namespace: opt-dev
+data:
+  ELASTIC_APM_SERVICE_NAME: "opt-be-task-email"
+  REDIRECT_URI: "http://localhost:3000/callback"
+  SCOPE: "Mail.Read"
+  GRAPH_API_ENDPOINT: "https://graph.microsoft.com/v1.0"
+  PORT: "8080"
+  DAPR_APP_ID: "opt-be-task-email"
+  DAPR_HOST : "localhost"
+  DAPR_PORT: "3500"

@@ -1,0 +1,84 @@
+# ---
+# apiVersion: source.toolkit.fluxcd.io/v1
+# kind: HelmRepository
+# metadata:
+#   name: redis-stack
+#   namespace: opt-dev
+# spec:
+#   interval: 24h
+#   url: https://redis-stack.github.io/helm-redis-stack/
+# ---
+# apiVersion: helm.toolkit.fluxcd.io/v2
+# kind: HelmRelease
+# metadata:
+#   name: redis-stack-server
+#   namespace: opt-dev
+# spec:
+#   targetNamespace: opt-dev
+#   upgrade:
+#     preserveValues: false
+#   install:
+#     createNamespace: true
+#   interval: 24h
+#   chart:
+#     spec:
+#       chart: redis-stack-server
+#       version: "0.x"
+#       sourceRef:
+#         kind: HelmRepository
+#         name: redis-stack
+#         namespace: opt-dev
+#       interval: 24h
+#   values:
+#     name: redis-stack-server
+#     redis_stack_server:
+#       image: "redis/redis-stack-server"
+#       tag: "7.4.0-v1"
+#       port: 6379
+#       replicas: 1
+#       storage_class: default
+#       storage: 8Gi
+#       affinity: {}
+
+---
+# Source: redis-stack-server/templates/redis-stack-server.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: "redis-stack-server"
+  namespace: opt-dev
+  labels:
+    app: "redis-stack-server"
+spec:
+  ports:
+  - port: 6379
+    name: db
+  type: ClusterIP
+  selector:
+    app: "redis-stack-server"
+---
+# Source: redis-stack-server/templates/redis-stack-server.yaml
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: "redis-stack-server"
+  namespace: opt-dev
+spec:
+  selector:
+    matchLabels:
+      app: "redis-stack-server"
+  serviceName: "redis-stack-server"
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: "redis-stack-server"
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: "redis-stack-server"
+        image: redis/redis-stack-server:7.4.0-v1
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 6379
+          name: db

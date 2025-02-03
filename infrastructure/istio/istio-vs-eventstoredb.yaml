@@ -1,0 +1,36 @@
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: eventstoredb-dev-optimality-pro-ai
+  namespace: opt-dev
+spec:
+  hosts:
+  - eventstoredb.dev.optimality-pro.ai
+  gateways:
+  - istio-system/wildcard-internal-dev-optimality-pro-ai
+  http:
+  - match:
+    - uri:
+        prefix: /
+    route:
+    - destination:
+        host: eventstore.opt-dev.svc.cluster.local
+        port:
+          number: 2113
+---
+apiVersion: networking.istio.io/v1
+kind: DestinationRule
+metadata:
+  name: eventstoredb-dev-optimality-pro-ai
+  namespace: opt-dev
+spec:
+  host: eventstore.opt-dev.svc.cluster.local
+  trafficPolicy:
+    loadBalancer:
+      simple: ROUND_ROBIN
+    portLevelSettings:
+    - port:
+        number: 2113
+      tls:
+        mode: SIMPLE
+        insecureSkipVerify: true

@@ -1,0 +1,36 @@
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: arangodb-dev-optimality-pro-ai
+  namespace: opt-arangodb
+spec:
+  hosts:
+  - arangodb.dev.optimality-pro.ai
+  gateways:
+  - istio-system/wildcard-external-dev-optimality-pro-ai
+  http:
+  - match:
+    - uri:
+        prefix: /
+    route:
+    - destination:
+        host: opt-arangodb-dev.opt-arangodb.svc.cluster.local
+        port:
+          number: 8529
+---
+apiVersion: networking.istio.io/v1
+kind: DestinationRule
+metadata:
+  name: arangodb-dev-optimality-pro-ai
+  namespace: opt-arangodb
+spec:
+  host: opt-arangodb-dev.opt-arangodb.svc.cluster.local
+  trafficPolicy:
+    loadBalancer:
+      simple: ROUND_ROBIN
+    portLevelSettings:
+    - port:
+        number: 8529
+      tls:
+        mode: SIMPLE
+        insecureSkipVerify: true

@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: opt-domain-mrd-backend-command
+  namespace: opt-dev
+spec:
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000
+  selector:
+    app: opt-domain-mrd-backend-command
+  sessionAffinity: None
+  type: ClusterIP

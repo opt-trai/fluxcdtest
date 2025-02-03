@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: opt-domain-rag-search-sme
+  namespace: opt-dev
+  annotations:
+    reloader.stakater.com/auto: "true"
+  labels:
+    app: opt-domain-rag-search-sme
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: opt-domain-rag-search-sme
+  revisionHistoryLimit: 5
+  template:
+    metadata:
+      labels:
+        app: opt-domain-rag-search-sme
+        stack: optimality
+      annotations:
+        dapr.io/enabled: 'true'
+        dapr.io/app-id: 'opt-domain-rag-search-sme'
+        dapr.io/app-port: '5050'
+    spec:
+      containers:
+      - name: opt-domain-rag-search-sme
+        image: optimality.azurecr.io/opt-domain-rag-search-sme:dev-0.0.1-1729606486-4 # {"$imagepolicy": "flux-system:opt-domain-rag-search-sme"}
+        envFrom:
+        - configMapRef:
+            name: opt-domain-rag-search-sme
+        - configMapRef:
+            name: opt-general
+        - secretRef:
+            name: opt-elasticsearch
+        - secretRef:
+            name: opt-elastic-apm
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 5050
+          name: http
+        # readinessProbe:
+        #   httpGet:
+        #     path: /
+        #     port: http
+        #   initialDelaySeconds: 5
+        #   periodSeconds: 10
+        # livenessProbe:
+        #   httpGet:
+        #     path: /
+        #     port: http
+        #   initialDelaySeconds: 15
+        #   periodSeconds: 20
+        resources:
+          requests:
+            cpu: 50m
+            memory: 128Mi
+          limits:
+            cpu: 500m
+            memory: 1Gi

@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: opt-domain-content-app
+  namespace: opt-dev 
+data:
+  DAPR_APP_ID: "opt-domain-content-app"
+  DAPR_HOST : "localhost"
+  DAPR_PORT: "3500"
+  SERVER_HOST: "localhost"
+  SERVER_PORT: "3000"
+  NODE_ENV: "production"
+  ELASTIC_APM_SERVICE_NAME: "opt-domain-content-app"
+  NODE_OPTIONS: "--require=elastic-apm-node/start-next.js"

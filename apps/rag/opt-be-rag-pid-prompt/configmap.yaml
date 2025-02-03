@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: opt-be-rag-pid-prompt
+  namespace: opt-dev
+data:
+  ELASTIC_APM_SERVICE_NAME: "opt-be-rag-pid-prompt"

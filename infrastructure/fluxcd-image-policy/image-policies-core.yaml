@@ -1,0 +1,364 @@
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: opt-fe-shell
+  namespace: flux-system
+spec:
+  filterTags:
+    pattern: '^dev-*'
+  imageRepositoryRef:
+    name: opt-fe-shell
+  policy:
+    alphabetical:
+      order: asc
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: opt-domain-tasks-app
+  namespace: flux-system
+spec:
+  filterTags:
+    pattern: '^dev-*'
+  imageRepositoryRef:
+    name: opt-domain-tasks-app
+  policy:
+    alphabetical:
+      order: asc
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: opt-domain-home-app
+  namespace: flux-system
+spec:
+  filterTags:
+    pattern: '^dev-*'
+  imageRepositoryRef:
+    name: opt-domain-home-app
+  policy:
+    alphabetical:
+      order: asc
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: opt-domain-content-app
+  namespace: flux-system
+spec:
+  filterTags:
+    pattern: '^dev-*'
+  imageRepositoryRef:
+    name: opt-domain-content-app
+  policy:
+    alphabetical:
+      order: asc
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: opt-domain-user-app
+  namespace: flux-system
+spec:
+  filterTags:
+    pattern: '^dev-*'
+  imageRepositoryRef:
+    name: opt-domain-user-app
+  policy:
+    alphabetical:
+      order: asc
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: opt-domain-rag-backend-main
+  namespace: flux-system
+spec:
+  filterTags:
+    pattern: '^dev-*'
+  imageRepositoryRef:
+    name: opt-domain-rag-backend-main
+  policy:
+    alphabetical:
+      order: asc
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: opt-domain-tasks-backend-main
+  namespace: flux-system
+spec:
+  filterTags:
+    pattern: '^dev-*'
+  imageRepositoryRef:
+    name: opt-domain-tasks-backend-main
+  policy:
+    alphabetical:
+      order: asc
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: opt-domain-content-backend-main
+  namespace: flux-system
+spec:
+  filterTags:
+    pattern: '^dev-*'
+  imageRepositoryRef:
+    name: opt-domain-content-backend-main
+  policy:
+    alphabetical:
+      order: asc
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: opt-domain-theme-backend-command
+  namespace: flux-system
+spec:
+  filterTags:
+    pattern: '^dev-*'
+  imageRepositoryRef:
+    name: opt-domain-theme-backend-command
+  policy:
+    alphabetical:
+      order: asc
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: opt-domain-theme-backend-query
+  namespace: flux-system
+spec:
+  filterTags:
+    pattern: '^dev-*'
+  imageRepositoryRef:
+    name: opt-domain-theme-backend-query
+  policy:
+    alphabetical:
+      order: asc
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: opt-domain-theme-app
+  namespace: flux-system
+spec:
+  filterTags:
+    pattern: '^dev-*'
+  imageRepositoryRef:
+    name: opt-domain-theme-app
+  policy:
+    alphabetical:
+      order: asc
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: opt-domain-user-backend-main
+  namespace: flux-system
+spec:
+  filterTags:
+    pattern: '^dev-*'
+  imageRepositoryRef:
+    name: opt-domain-user-backend-main
+  policy:
+    alphabetical:
+      order: asc
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: opt-domain-bpm-app
+  namespace: flux-system
+spec:
+  filterTags:
+    pattern: '^dev-*'
+  imageRepositoryRef:
+    name: opt-domain-bpm-app
+  policy:
+    alphabetical:
+      order: asc
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: opt-master-node-registry-command
+  namespace: flux-system
+spec:
+  filterTags:
+    pattern: '^dev-*'
+  imageRepositoryRef:
+    name: opt-master-node-registry-command
+  policy:
+    alphabetical:
+      order: asc
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: opt-master-node-registry-query
+  namespace: flux-system
+spec:
+  filterTags:
+    pattern: '^dev-*'
+  imageRepositoryRef:
+    name: opt-master-node-registry-query
+  policy:
+    alphabetical:
+      order: asc
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: opt-domain-prompt-app
+  namespace: flux-system
+spec:
+  filterTags:
+    pattern: '^dev-*'
+  imageRepositoryRef:
+    name: opt-domain-prompt-app
+  policy:
+    alphabetical:
+      order: asc
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: opt-domain-bpm-backend-command
+  namespace: flux-system
+spec:
+  filterTags:
+    pattern: '^dev-*'
+  imageRepositoryRef:
+    name: opt-domain-bpm-backend-command
+  policy:
+    alphabetical:
+      order: asc
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: opt-domain-bpm-backend-query
+  namespace: flux-system
+spec:
+  filterTags:
+    pattern: '^dev-*'
+  imageRepositoryRef:
+    name: opt-domain-bpm-backend-query
+  policy:
+    alphabetical:
+      order: asc
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: opt-be-task-email
+  namespace: flux-system
+spec:
+  filterTags:
+    pattern: '^dev-*'
+  imageRepositoryRef:
+    name: opt-be-task-email
+  policy:
+    alphabetical:
+      order: asc
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: opt-be-graph-arangodb-command
+  namespace: flux-system
+spec:
+  filterTags:
+    pattern: '^dev-*'
+  imageRepositoryRef:
+    name: opt-be-graph-arangodb-command
+  policy:
+    alphabetical:
+      order: asc
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: opt-graph-visualizer-app
+  namespace: flux-system
+spec:
+  filterTags:
+    pattern: '^dev-*'
+  imageRepositoryRef:
+    name: opt-graph-visualizer-app
+  policy:
+    alphabetical:
+      order: asc
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: opt-domain-mrd-backend-command-query
+  namespace: flux-system
+spec:
+  filterTags:
+    pattern: '^dev-*'
+  imageRepositoryRef:
+    name: opt-domain-mrd-backend-command-query
+  policy:
+    alphabetical:
+      order: asc
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: opt-be-arangodb-agent
+  namespace: flux-system
+spec:
+  filterTags:
+    pattern: '^dev-*'
+  imageRepositoryRef:
+    name: opt-be-arangodb-agent
+  policy:
+    alphabetical:
+      order: asc
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: opt-domain-endeavors-backend-command
+  namespace: flux-system
+spec:
+  filterTags:
+    pattern: '^dev-*'
+  imageRepositoryRef:
+    name: opt-domain-endeavors-backend-command
+  policy:
+    alphabetical:
+      order: asc
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: opt-domain-endeavors-backend-query
+  namespace: flux-system
+spec:
+  filterTags:
+    pattern: '^dev-*'
+  imageRepositoryRef:
+    name: opt-domain-endeavors-backend-query
+  policy:
+    alphabetical:
+      order: asc
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: opt-optimizer
+  namespace: flux-system
+spec:
+  filterTags:
+    pattern: '^dev-*'
+  imageRepositoryRef:
+    name: opt-optimizer
+  policy:
+    alphabetical:
+      order: asc

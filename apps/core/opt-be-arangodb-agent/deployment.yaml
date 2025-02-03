@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: opt-be-arangodb-agent
+  namespace: opt-dev
+  annotations:
+    reloader.stakater.com/auto: "true"
+  labels:
+    app: opt-be-arangodb-agent
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: opt-be-arangodb-agent
+  revisionHistoryLimit: 5
+  template:
+    metadata:
+      labels:
+        app: opt-be-arangodb-agent
+        stack: optimality
+      annotations:
+        dapr.io/enabled: 'true'
+        dapr.io/app-id: 'opt-be-arangodb-agent'
+        dapr.io/app-port: '8000'
+        dapr.io/sidecar-liveness-probe-delay-seconds: '10'
+        dapr.io/sidecar-liveness-probe-timeout-seconds: '5'
+        dapr.io/sidecar-liveness-probe-period-seconds: '20'
+        dapr.io/sidecar-readiness-probe-delay-seconds: '10'
+        dapr.io/sidecar-readiness-probe-timeout-seconds: '5'
+        dapr.io/sidecar-readiness-probe-period-seconds: '20'
+    spec:
+      containers:
+      - name: opt-be-arangodb-agent
+        image: optimality.azurecr.io/opt-be-arangodb-agent:dev-0.0.1-1736924181-19 # {"$imagepolicy": "flux-system:opt-be-arangodb-agent"}
+        imagePullPolicy: IfNotPresent
+        envFrom:
+        - configMapRef:
+            name: opt-be-arangodb-agent
+        - secretRef:
+            name: opt-openai
+        - secretRef:
+            name: opt-arangodb
+        - secretRef:
+            name: opt-elastic-apm
+        ports:
+        - containerPort: 8000
+          name: http
+        # readinessProbe:
+        #   httpGet:
+        #     path: /
+        #     port: http
+        #   initialDelaySeconds: 15
+        #   periodSeconds: 10
+        # livenessProbe:
+        #   httpGet:
+        #     path: /
+        #     port: http
+        #   initialDelaySeconds: 15
+        #   periodSeconds: 20
+        resources:
+          requests:
+            cpu: 50m
+            memory: 128Mi
+          limits:
+            cpu: 500m
+            memory: 1Gi
